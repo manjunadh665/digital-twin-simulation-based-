@@ -209,4 +209,4 @@ This project demonstrates how a digital twin can be built as a complete system r
 
 ## Author
 
-Hyndavi
+Manjunadh
