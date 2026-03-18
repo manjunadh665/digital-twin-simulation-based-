@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<!-- Your existing Gz plugin — keep exactly as you had it -->
+<gazebo>
+  <plugin
+    name="gz_ros2_control::GazeboSimROS2ControlPlugin"
+    filename="libgz_ros2_control-system.so">
+    <parameters>$(find digital_twin)/config/ros2_control.yaml</parameters>
+    <ros>
+      <remapping>~/robot_description:=robot_description</remapping>
+    </ros>
+  </plugin>
+</gazebo>
+
+<ros2_control name="GazeboSimSystem" type="system">
+  <hardware>
+    <plugin>gz_ros2_control/GazeboSimSystem</plugin>  <!-- ← this changes -->
+  </hardware>
+
+  <joint name="first_joint">
+    <command_interface name="position">
+      <param name="min">-0.785</param>
+      <param name="max">0.785</param>
+    </command_interface>
+    <state_interface name="position"/>
+    <state_interface name="velocity"/>
+  </joint>
+
+  <joint name="second_joint">
+    <command_interface name="position">
+      <param name="min">0</param>
+      <param name="max">1.5707</param>
+    </command_interface>
+    <state_interface name="position"/>
+    <state_interface name="velocity"/>
+  </joint>
+
+  <joint name="third_joint">
+    <command_interface name="position">
+      <param name="min">0</param>
+      <param name="max">1.5707</param>
+    </command_interface>
+    <state_interface name="position"/>
+    <state_interface name="velocity"/>
+  </joint>
+
+  <joint name="fourth_joint">
+    <command_interface name="position">
+      <param name="min">0</param>
+      <param name="max">1.5707</param>
+    </command_interface>
+    <state_interface name="position"/>
+    <state_interface name="velocity"/>
+  </joint>
+
+  <joint name="gripper_joint">
+    <command_interface name="position"/>
+    <state_interface name="position"/>
+    <state_interface name="velocity"/>
+  </joint>
+
+</ros2_control>
+
+</robot> 

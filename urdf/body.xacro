@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <material name="green" ><color rgba="0 0.5 0 1" /></material>
+    <material name="gray" ><color rgba="0.5 0.5 0.5 1" /></material>
+    <material name="orange" ><color rgba="1 0.5 0 1" /></material>
+    <material name="yellow" ><color rgba="1 1 0 1" /></material>
+
+    <link name="base_link">
+        <visual><geometry><cylinder radius="0.1" length="0.07"/></geometry><origin xyz="0 0 0.035" rpy="0 0 0"/><material name="green"/></visual>
+        <collision><geometry><cylinder radius="0.1" length="0.07"/></geometry><origin xyz="0 0 0.035" rpy="0 0 0"/></collision>
+        <inertial><origin xyz="0 0 0" rpy="0 0 0"/><mass value="0.3"/><inertia ixx="0.00029083" ixy="0.0" ixz="0.0" iyy="0.00029083" iyz="0.0" izz="0.0005"/></inertial>
+    </link>
+
+    <link name="first_link">
+        <visual><geometry><cylinder radius="0.05" length="0.15"/></geometry><origin xyz="0 0 0.075" rpy="0 0 0"/><material name="green"/></visual>
+        <collision><geometry><cylinder radius="0.05" length="0.15"/></geometry><origin xyz="0 0 0.075" rpy="0 0 0"/></collision>
+        <inertial><origin xyz="0 0 0" rpy="0 0 0"/><mass value="0.1"/><inertia ixx="0.00025" ixy="0.0" ixz="0.0" iyy="0.00025" iyz="0.0" izz="0.000125"/></inertial>
+    </link>
+
+    <link name="second_link">
+        <visual><geometry><cylinder radius="0.05" length="0.15"/></geometry><origin xyz="0 0 0.075" rpy="0 0 0"/><material name="green"/></visual>
+        <collision><geometry><cylinder radius="0.05" length="0.15"/></geometry><origin xyz="0 0 0.075" rpy="0 0 0"/></collision>
+        <inertial><origin xyz="0 0 0" rpy="0 0 0"/><mass value="0.1"/><inertia ixx="0.00025" ixy="0.0" ixz="0.0" iyy="0.00025" iyz="0.0" izz="0.000125"/></inertial>
+    </link>
+
+    <link name="third_link">
+        <visual><geometry><cylinder radius="0.05" length="0.15"/></geometry><origin xyz="0 0 0.075" rpy="0 0 0"/><material name="green"/></visual>
+        <collision><geometry><cylinder radius="0.05" length="0.15"/></geometry><origin xyz="0 0 0.075" rpy="0 0 0"/></collision>
+        <inertial><origin xyz="0 0 0" rpy="0 0 0"/><mass value="0.1"/><inertia ixx="0.00025" ixy="0.0" ixz="0.0" iyy="0.00025" iyz="0.0" izz="0.000125"/></inertial>
+    </link>
+
+    <link name="fourth_link">
+        <visual><geometry><cylinder radius="0.05" length="0.15"/></geometry><origin xyz="0 0 0.075" rpy="0 0 0"/><material name="green"/></visual>
+        <collision><geometry><cylinder radius="0.05" length="0.15"/></geometry><origin xyz="0 0 0.075" rpy="0 0 0"/></collision>
+        <inertial><origin xyz="0 0 0" rpy="0 0 0"/><mass value="0.1"/><inertia ixx="0.00025" ixy="0.0" ixz="0.0" iyy="0.00025" iyz="0.0" izz="0.000125"/></inertial>
+    </link>
+
+    <link name="gripper_link">
+        <visual><geometry><cylinder radius="0.02" length="0.07"/></geometry><origin xyz="0 0 0.035" rpy="0 0 0"/><material name="green"/></visual>
+        <collision><geometry><cylinder radius="0.02" length="0.07"/></geometry><origin xyz="0 0 0.035" rpy="0 0 0"/></collision>
+        <inertial><origin xyz="0 0 0" rpy="0 0 0"/><mass value="0.1"/><inertia ixx="0.00005083" ixy="0.0" ixz="0.0" iyy="0.00005083" iyz="0.0" izz="0.00002"/></inertial>
+    </link>
+
+    <link name="base_footprint"/>
+
+    <joint name="footprint_joint" type="fixed">
+        <parent link="base_footprint"/>
+        <child link="base_link"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+
+    <joint name="first_joint" type="revolute">
+        <parent link="base_link" /><child link="first_link" /><origin xyz="0 0 0.07" rpy="0 0 0" /><axis xyz="0 0 1" />
+        <limit lower="${-pi/4}" upper="${pi/4}" effort="100" velocity="100" /><dynamics friction="0.3" damping="0.3"/>
+    </joint>
+
+    <joint name="second_joint" type="revolute">
+        <parent link="first_link" /><child link="second_link" /><origin xyz="0 0 0.15" rpy="0 0 0" /><axis xyz="0 1 0" />
+        <limit lower="0" upper="${pi/2}" effort="100" velocity="100" /><dynamics friction="0.3" damping="0.3"/>
+    </joint>
+
+    <joint name="third_joint" type="revolute">
+        <parent link="second_link" /><child link="third_link" /><origin xyz="0 0 0.15" rpy="0 0 0" /><axis xyz="0 1 0" />
+        <limit lower="0" upper="${pi/2}" effort="100" velocity="100" /><dynamics friction="0.3" damping="0.3"/>
+    </joint>
+
+    <joint name="fourth_joint" type="revolute">
+        <parent link="third_link" /><child link="fourth_link" /><origin xyz="0 0 0.15" rpy="0 0 0" /><axis xyz="0 1 0" />
+        <limit lower="0" upper="${pi/2}" effort="100" velocity="100" /><dynamics friction="0.3" damping="0.3"/>
+    </joint>
+
+    <joint name="gripper_joint" type="continuous">
+        <parent link="fourth_link" /><child link="gripper_link" /><origin xyz="0 0 0.15" rpy="0 0 0" /><axis xyz="0 0 1" />
+        <dynamics friction="0.3" damping="0.3"/>
+    </joint>
+    <!-- Joint limit enforcement for Gazebo -->
+    <gazebo reference="first_joint">
+        <implicitSpringDamper>true</implicitSpringDamper>
+        <stopCfm>0.0</stopCfm>
+        <stopErp>0.9</stopErp>
+    </gazebo>
+
+    <gazebo reference="second_joint">
+        <implicitSpringDamper>true</implicitSpringDamper>
+        <stopCfm>0.0</stopCfm>
+        <stopErp>0.9</stopErp>
+    </gazebo>
+
+    <gazebo reference="third_joint">
+        <implicitSpringDamper>true</implicitSpringDamper>
+        <stopCfm>0.0</stopCfm>
+        <stopErp>0.9</stopErp>
+    </gazebo>
+
+    <gazebo reference="fourth_joint">
+        <implicitSpringDamper>true</implicitSpringDamper>
+        <stopCfm>0.0</stopCfm>
+        <stopErp>0.9</stopErp>
+    </gazebo>
+
+    <gazebo reference="gripper_joint">
+        <implicitSpringDamper>true</implicitSpringDamper>
+        <stopCfm>0.0</stopCfm>
+        <stopErp>0.9</stopErp>
+    </gazebo>
+</robot>
